@@ -115,6 +115,20 @@ pipeline {
       }
     }
 
+    stage('K8 Deployment - DEV'){
+
+      steps{
+
+        withKubeConfig(['credentialsId':'kubeconfig']){
+            sh "sed -i 's#replace#sprasanna1992/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+            sh "kubectl apply -f k8s_deployment_service.yaml"
+
+        }
+      }
+    }
+
+
+
  //    stage('Vulnerability Scan - Kubernetes') {
  //      steps {
  //        parallel(
