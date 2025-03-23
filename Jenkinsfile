@@ -53,11 +53,19 @@ pipeline {
       }
     }
 
- //    stage('Unit Tests - JUnit and JaCoCo') {
- //      steps {
- //        sh "mvn test"
- //      }
- //    }
+    stage('Unit Tests - JUnit and JaCoCo') {
+      steps {
+        sh "mvn test"
+      }
+      post{
+          always{
+            junit 'target/surefire-reports/*.xml'
+            jacoco execPattern: 'target/jacoco.exec'
+          }
+
+      }
+
+    }
 
  //    stage('Mutation Tests - PIT') {
  //      steps {
