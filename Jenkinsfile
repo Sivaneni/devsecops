@@ -79,9 +79,14 @@ pipeline {
            sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecopsvm.eastus.cloudapp.azure.com:9000/"
         }
         timeout(time: 2, unit: 'MINUTES') {
-          script {
-            waitForQualityGate abortPipeline: true
-          }
+            script {
+        try {
+          waitForQualityGate abortPipeline: true
+        } catch (Exception e) {
+          echo "Quality Gate check failed: ${e.message}"
+          currentBuild.result = 'FAILURE'
+        }
+      }
         }
       }
     }
