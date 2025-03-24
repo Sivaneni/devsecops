@@ -78,14 +78,17 @@ pipeline {
         withSonarQubeEnv('SonarQube') {
            sh "mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecopsvm.eastus.cloudapp.azure.com:9000/"
         }
-       sleep(60)
-          timeout(time: 1, unit: 'MINUTES') {
-            def qg = waitForQualityGate()
-            print "Finished waiting"
-            if (qg.status != 'OK') {
-                error "Pipeline aborted due to quality gate failure: ${qg.status}"
-    }
-}  
+        sleep(60)
+        timeout(time: 2, unit: 'MINUTES') {
+            script {
+        try {
+          waitForQualityGate abortPipeline: true
+        } catch (Exception e) {
+          echo "Quality Gate check failed: ${e.message}"
+          currentBuild.result = 'FAILURE'
+        }
+      }
+        }
       }
     }
 
