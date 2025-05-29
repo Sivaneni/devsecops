@@ -1,12 +1,15 @@
 package main
+import future.keywords.if
+import future.keywords.in
+import future.keywords.contains
 
-deny[msg] {
+deny contains msg if {
   input.kind == "Service"
   input.spec.type != "NodePort"
   msg = "Service type should be NodePort"
 }
 
-deny[msg] {
+deny contains msg if {
   input.kind == "Deployment"
   some i
   input.spec.template.spec.containers[i].securityContext.runAsNonRoot != true
