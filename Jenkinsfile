@@ -43,6 +43,7 @@ pipeline {
   agent any
 
    environment {
+     KUBECONFIG = "/var/lib/jenkins/.kube/config"
     deploymentName = "devsecops"
     containerName = "devsecops-container"
     serviceName = "devsecops-svc"
@@ -175,12 +176,12 @@ pipeline {
       steps {
         parallel(
           "Deployment": {
-            withKubeConfig([credentialsId: 'config']) {
+             {
               sh "bash k8s-deployment.sh"
             }
           },
           "Rollout Status": {
-            withKubeConfig([credentialsId: 'config']) {
+             {
               sh "bash k8s-deployment-rollout-status.sh"
             }
           }
