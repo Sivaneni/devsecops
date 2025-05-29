@@ -202,13 +202,21 @@ pipeline {
  //      }
  //    }
 
- //   stage('OWASP ZAP - DAST') {
- //      steps {
- //        withKubeConfig([credentialsId: 'kubeconfig']) {
- //          sh 'bash zap.sh'
- //        }
- //      }
- //    }
+  //  stage('OWASP ZAP - DAST') {
+  //     steps {
+  //       withKubeConfig([credentialsId: 'kubeconfig']) {
+  //         sh 'bash zap.sh'
+  //       }
+  //     }
+  //   }
+
+  stage('OWASP ZAP - DAST') {
+      steps {
+        
+          sh 'bash zap.sh'
+        }
+      
+    }
 
  //    stage('Prompte to PROD?') {
  //      steps {
@@ -294,7 +302,7 @@ pipeline {
           pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
      //      dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
      //      publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP HTML Report', reportTitles: 'OWASP ZAP HTML Report'])
-        
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, icon: '', keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP REPORT', reportTitles: 'OWASP ZAP REPORT', useWrapperFileDirectly: true])
  		  // //Use sendNotifications.groovy from shared library and provide current build result as parameter 
      //      //sendNotification currentBuild.result
      //    }
