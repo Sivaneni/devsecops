@@ -1,4 +1,4 @@
-// @Library('slack') _
+@Library('slack') _
 
 
 // /////// ******************************* Code for fectching Failed Stage Name ******************************* ///////
@@ -302,8 +302,10 @@ pipeline {
      //      dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
      //      publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP HTML Report', reportTitles: 'OWASP ZAP HTML Report'])
         publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP REPORT', reportTitles: 'OWASP ZAP REPORT'])
- 		  // //Use sendNotifications.groovy from shared library and provide current build result as parameter 
-     //      //sendNotification currentBuild.result
+          sendNotification currentBuild.result
+      
+      // //Use sendNotifications.groovy from shared library and provide current build result as parameter 
+     //      sendNotification currentBuild.result
      //    }
 
       //   success {
