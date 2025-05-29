@@ -173,21 +173,17 @@ pipeline {
    
 
     stage('K8S Deployment - DEV') {
-      steps {
+    steps {
         parallel(
-          "Deployment": {
-             {
-              sh "bash k8s-deployment.sh"
+            "Deployment": {
+                sh "bash k8s-deployment.sh"
+            },
+            "Rollout Status": {
+                sh "bash k8s-deployment-rollout-status.sh"
             }
-          },
-          "Rollout Status": {
-             {
-              sh "bash k8s-deployment-rollout-status.sh"
-            }
-          }
         )
-      }
     }
+}
 
  //    stage('Integration Tests - DEV') {
  //      steps {
