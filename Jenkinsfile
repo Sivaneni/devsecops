@@ -38,7 +38,6 @@
 // }
 
 /////// ******************************* Code for fectching Failed Stage Name ******************************* ///////
-
 pipeline {
   agent any
 
