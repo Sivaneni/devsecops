@@ -152,34 +152,34 @@ pipeline {
       }
     }
 
-    // stage('K8 Deployment - DEV'){
+    stage('K8 Deployment - DEV'){
 
-    //   steps{
+      steps{
 
-    //     withKubeConfig(['credentialsId':'kubeconfig']){
-    //         sh "sed -i 's#replace#sprasanna1992/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-    //         sh "kubectl apply -f k8s_deployment_service.yaml"
+        withKubeConfig(['credentialsId':'kubeconfig']){
+            sh "sed -i 's#replace#sprasanna1992/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+            sh "kubectl apply -f k8s_deployment_service.yaml"
 
-    //     }
-    //   }
-    // }
+        }
+      }
+    }
 
 
 
    
 
-    stage('K8S Deployment - DEV') {
-    steps {
-        parallel(
-            "Deployment": {
-                sh "bash k8s-deployment.sh"
-            },
-            "Rollout Status": {
-                sh "bash k8s-deployment-rollout-status.sh"
-            }
-        )
-    }
-}
+//     stage('K8S Deployment - DEV') {
+//     steps {
+//         parallel(
+//             "Deployment": {
+//                 sh "bash k8s-deployment.sh"
+//             },
+//             "Rollout Status": {
+//                 sh "bash k8s-deployment-rollout-status.sh"
+//             }
+//         )
+//     }
+// }
 
  //    stage('Integration Tests - DEV') {
  //      steps {
